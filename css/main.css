@@ -112,8 +112,9 @@ body {
 	font-size: 70px;
 }
 
-#map { height: 180px; }
-
+#map { height: 500px;
+	   width: 800px;
+	 }
 
 
 
