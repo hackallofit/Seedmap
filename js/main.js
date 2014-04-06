@@ -3,7 +3,7 @@
  */
 	//A Test Torrent
 	//magnet:?xt=urn:btih:d266b48a9e61435bd6f044f0a11bc12b6fc56f1d&dn=Nerf+Gun&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.istole.it%3A6969&tr=udp%3A%2F%2Ftracker.ccc.de%3A80&tr=udp%3A%2F%2Fopen.demonii.com%3A1337
-	var map = L.map('map').setView([51.505, -0.09], 13);
+	var map = L.map('map').setView([0, 0], 2);
 	
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -49,28 +49,26 @@
 	
 	
 	function seedMap() {
+		
 			btapp.get('torrent').each(function(torrent) {
 				var torrentName = torrent.get('properties').get('name');
 				var torrentHash = torrent.get('properties').get('hash');
 		  		torrent.get('peer').each(function(peer) {
 		  			var ip = peer.get('properties').get('ip');
-		  			$.ajax({
-		  			type: 'GET',
-     				url: "http://www.telize.com/geoip/" + ip + "?callback=getgeoip",
-     				dataType: 'json',
-		     		success: function(json){
-				    		     lat = json.latitude;
-					    	     lon = json.longitude;
-					    	     L.marker([lat, lon]).addTo(map)
-    						     .bindPopup(ip)
-    							 .openPopup();
-    						},
-    				failure: function() {
-    				alert('Fail!');
-    				}
-    				});
+		  			$.ajax({url: 'http://www.telize.com/geoip/' + ip,
+		  				dataType: 'json',
+						success: function(data) {
+					    		var lat = data.latitude;
+						    	var lon = data.longitude;
+						    	
+						    	marker = new L.marker([lat, lon]).addTo(map)
+    			    			.bindPopup(ip);
+						}
+					});		
     		});
    });
  };
+ 
+ 
 //Another Test Torrent:
 //http://www.legittorrents.info/download.php?id=8fa84aae7a629b6346c1a881ce5fda929e0fd9ad&f=Pixelhive%20-%2014th%20April%202013%20-%20Best%20Minecraft%20Creations.torrent
