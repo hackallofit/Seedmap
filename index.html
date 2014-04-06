@@ -11,25 +11,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="js/vendor/leaflet/leaflet.css">
-        <script type="text/javascript" src="js/vendor/modernizr-2.7.1.js"></script>
-        <script type="text/javascript" src="js/vendor/jquery-2.1.1.js"></script>
-        <script type="text/javascript" src="js/vendor/json2.js"></script>
-        <!-- Btapp.js dependencies load. -->
-        <script type="text/javascript" src="js/vendor/lodash.underscore-2.4.1.js"></script>
-        <script type="text/javascript" src="js/vendor/backbone-1.1.2.js"></script>
-        <script type="text/javascript" src="js/vendor/backbrace-0.3.0.js"></script>
-        <script type="text/javascript" src="js/vendor/jstorage-0.4.8.js"></script>
-        <!-- Btapp.js loads -->
-        <script type="text/javascript" src="js/vendor/btapp/pairing.btapp.js"></script>
-        <script type="text/javascript" src="js/vendor/btapp/plugin.btapp.js"></script>
-        <script type="text/javascript" src="js/vendor/btapp/client.btapp.js"></script>
-        <script type="text/javascript" src="js/vendor/btapp/btapp.js"></script>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+        
+        <!-- Torque dependencies -->
+        
+        <script src="js/vendor/jquery.js"></script>
+		<script src="js/vendor/json2.js"></script>
+		<script src="js/vendor/underscore.js"></script>
+		<script src="js/vendor/backbone.js"></script>
+		<script src="js/vendor/backbrace.js"></script>
+		<script src="js/vendor/jstorage.js"></script>
+		
+		<!-- Leaflet loads -->
+
+		<!-- btapp.js loads -->
+		
+		<script src="js/vendor/btapp/plugin.btapp.js"></script>  
+		<script src="js/vendor/btapp/pairing.btapp.js"></script>  
+		<script src="js/vendor/btapp/client.btapp.js"></script>  
+		<script src="js/vendor/btapp/btapp.js"></script>  
+
+        
         <!-- Leaflet loads -->
-        <script type="text/javascript" src="js/vendor/leaflet/leaflet-src.js"></script>
+         <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
        	
     </head>
     <body>
@@ -38,21 +44,21 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <div id='torrentForm'>
+        <div id='main'>
+        <div id='headBar'>Seedmap</div>
+        <br><br>
         <input type="text" id="inputMagnet">
-        <button type="submit" onclick="submitTorrent()">Submit</button>
+        <button type="submit" onclick="submitTorrent()">Add Torrent</button>
+        <br>
+        <br>
+        <h1>Torrents</h1>
+        <table id='listEm' align='center' bordercolor="#000000" border="2px"></table>
         </div>
-        
+        <table id='seedEm' align='center' bordercolor="#000000" border="2px"></table> 
+        <div id='mapDiv' align='center'><h5>Seedmaps</h5>
+         <button onclick="seedMap()">Refresh Seedmap</button>
+        </div>
+        <div id='map'></div>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-        <script>
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments);});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r);}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
-        </script>
-    </body>
 </html>
