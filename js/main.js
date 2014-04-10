@@ -66,7 +66,8 @@
 						    	var lon = data.longitude;
 						    	var city = data.city;
 						    	var region = data.region;
-						    	var country = data.country;
+						    	var country = data.country;	   
+						    	
 						    	var marker = new L.marker([lat, lon]).addTo(markers)
     			    			.bindPopup('<p>I.P. Address: ' + ip + '</p><p>Location: ' + city + ', ' + region + ', ' + country + '</p><p>Client: ' + peerClient + '</p>');
     			    			map.addLayer(markers);
@@ -75,9 +76,34 @@
     			    		console.log('Failed to locate I.P. address. Bad JSON call.');
     			    		}
 						
-					});		
+					});
+					
+						
     		});
    });
+   
+   $.ajax({url: 'http://www.telize.com/geoip/',
+		  				dataType: 'jsonp',
+						success: function(data) {
+								var ip = data.ip;
+					    		var lat = data.latitude;
+						    	var lon = data.longitude;
+						    	var city = data.city;
+						    	var region = data.region;
+						    	var country = data.country;
+						    	
+						    	btapp.live('settings' , function(settings) {
+   									var yourClient = settings.get('clientname');
+   									var marker = new L.marker([lat, lon]).addTo(markers)
+    			    			.bindPopup('<p><b>You</b></p><p>I.P. Address: ' + ip + '</p><p>Location: ' + city + ', ' + region + ', ' + country + '</p><p>Client: ' + yourClient + '</p>');
+    			    			map.addLayer(markers);
+   								});
+						},
+						error: function() {
+    			    		console.log('Failed to locate I.P. address. Bad JSON call.');
+    			    		}
+						
+					});	
  };
  
  
