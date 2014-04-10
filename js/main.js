@@ -55,15 +55,22 @@
 				var torrentHash = torrent.get('properties').get('hash');
 		  		torrent.get('peer').each(function(peer) {
 		  			var ip = peer.get('properties').get('ip');
+		  			var peerClient = peer.get('properties').get('client');
 		  			$.ajax({url: 'http://www.telize.com/geoip/' + ip,
-		  				dataType: 'json',
+		  				dataType: 'jsonp',
 						success: function(data) {
 					    		var lat = data.latitude;
 						    	var lon = data.longitude;
-						    	
+						    	var city = data.city;
+						    	var region = data.region;
+						    	var country = data.country;
 						    	marker = new L.marker([lat, lon]).addTo(map)
-    			    			.bindPopup(ip);
-						}
+    			    			.bindPopup('<p>I.P. Address: ' + ip + '</p><p>Location: ' + city + ', ' + region + ', ' + country + '</p><p>Client: ' + peerClient + '</p>');
+						},
+						error: function() {
+    			    		console.log('Failed to locate I.P. address. Bad JSON call.');
+    			    		}
+						
 					});		
     		});
    });
