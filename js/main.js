@@ -9,6 +9,8 @@
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     maxZoom: 18
 	}).addTo(map);
+	
+	markers = new L.FeatureGroup();
 
 	var btapp = new Btapp();
 	btapp.connect();
@@ -51,6 +53,7 @@
 	function seedMap() {
 		
 			btapp.get('torrent').each(function(torrent) {
+				map.removeLayer(markers);
 				var torrentName = torrent.get('properties').get('name');
 				var torrentHash = torrent.get('properties').get('hash');
 		  		torrent.get('peer').each(function(peer) {
@@ -64,8 +67,9 @@
 						    	var city = data.city;
 						    	var region = data.region;
 						    	var country = data.country;
-						    	marker = new L.marker([lat, lon]).addTo(map)
+						    	var marker = new L.marker([lat, lon]).addTo(markers)
     			    			.bindPopup('<p>I.P. Address: ' + ip + '</p><p>Location: ' + city + ', ' + region + ', ' + country + '</p><p>Client: ' + peerClient + '</p>');
+    			    			map.addLayer(markers);
 						},
 						error: function() {
     			    		console.log('Failed to locate I.P. address. Bad JSON call.');
